@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+
+public class Student {
+    String name;
+    String registrationNumber;
+    ArrayList<String> registeredCourses = new ArrayList<>();
+
+    // Constructor
+    public Student(String name, String registrationNumber) {
+        this.name = name;
+        this.registrationNumber = registrationNumber;
+    }
+
+    // Method to add courses
+    public void addCourse(String course) {
+        registeredCourses.add(course);
+    }
+
+    // Method to view all registered courses
+    public void viewRegisteredCourses() {
+        if (registeredCourses.isEmpty()) {
+            System.out.println("No courses registered.");
+        } else {
+            System.out.println("Registered Courses for " + name + ":");
+            for (String course : registeredCourses) {
+                System.out.println("- " + course);
+            }
+        }
+    }
+
+    // Main method for testing
+    public static void main(String[] args) {
+        Student s1 = new Student("Sesha Rengan", "CSBS2025");
+        s1.addCourse("Data Science");
+        s1.addCourse("Java Programming");
+        s1.addCourse("Database Management");
+
+        s1.viewRegisteredCourses();
+    }
+}
