@@ -1,0 +1,37 @@
+// Generic Binary Search Program in Java
+class GenericBinarySearch {
+
+    // Generic method for Binary Search
+    public static <T extends Comparable<T>> int binarySearch(T[] arr, T key) {
+        int low = 0, high = arr.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            int result = key.compareTo(arr[mid]);
+
+            if (result == 0) {
+                return mid; // Key found
+            } else if (result > 0) {
+                low = mid + 1; // Search right half
+            } else {
+                high = mid - 1; // Search left half
+            }
+        }
+        return -1; // Key not found
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        Integer[] intArray = {10, 20, 30, 40, 50};
+        String[] strArray = {"Apple", "Banana", "Cherry", "Mango", "Orange"};
+
+        int intResult = binarySearch(intArray, 30);
+        int strResult = binarySearch(strArray, "Mango");
+
+        System.out.println("Integer Search Result (30): " + 
+                           (intResult != -1 ? "Found at index " + intResult : "Not Found"));
+
+        System.out.println("String Search Result (Mango): " + 
+                           (strResult != -1 ? "Found at index " + strResult : "Not Found"));
+    }
+}
