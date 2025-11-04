@@ -1,0 +1,94 @@
+import java.util.*;
+class User {
+    protected String name;
+    protected String email;
+    public User(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+    public void displayUser() {
+        System.out.println("Name: " + name + ", Email: " + email);
+    }
+}
+class Feedback {
+    private String message;
+    private User user;
+    public Feedback(User user, String message) {
+        this.user = user;
+        this.message = message;
+    }
+    public void displayFeedback() {
+        System.out.println("------------------------------");
+        System.out.println("From: " + user.name + " (" + user.email + ")");
+        System.out.println("Feedback: " + message);
+    }
+}
+class Admin {
+    private String adminName;
+    private String password;
+
+    public Admin(String adminName, String password) {
+        this.adminName = adminName;
+        this.password = password;
+    }
+
+    public boolean login(String name, String pass) {
+        return adminName.equals(name) && password.equals(pass);
+    }
+}
+public class FeedbackSystem {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        List<Feedback> feedbackList = new ArrayList<>();
+        Admin admin = new Admin("admin", "1234");
+
+        while (true) {
+            System.out.println("\n=== Feedback and Suggestion Box System ===");
+            System.out.println("1. Submit Feedback");
+            System.out.println("2. Admin Login");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+            sc.nextLine(); // clear buffer
+
+            if (choice == 1) {
+                System.out.print("Enter your name: ");
+                String name = sc.nextLine();
+                System.out.print("Enter your email: ");
+                String email = sc.nextLine();
+                System.out.print("Enter your feedback/suggestion: ");
+                String msg = sc.nextLine();
+
+                User user = new User(name, email);
+                Feedback fb = new Feedback(user, msg);
+                feedbackList.add(fb);
+                System.out.println("✅ Feedback submitted successfully!");
+            } 
+            else if (choice == 2) {
+                System.out.print("Enter admin username: ");
+                String uname = sc.nextLine();
+                System.out.print("Enter password: ");
+                String pass = sc.nextLine();
+
+                if (admin.login(uname, pass)) {
+                    System.out.println("\n--- All Feedbacks ---");
+                    if (feedbackList.isEmpty())
+                        System.out.println("No feedback submitted yet.");
+                    else
+                        for (Feedback fb : feedbackList)
+                            fb.displayFeedback();
+                } else {
+                    System.out.println("❌ Invalid login!");
+                }
+            } 
+            else if (choice == 3) {
+                System.out.println("Thank you for using Feedback System!");
+                break;
+            } 
+            else {
+                System.out.println("Invalid choice! Try again.");
+            }
+        }
+        sc.close();
+    }
+}
