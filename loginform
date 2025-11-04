@@ -1,0 +1,44 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class LoginForm extends JFrame implements ActionListener {
+    JTextField userField;
+    JPasswordField passField;
+    JButton loginButton;
+
+    LoginForm() {
+        setTitle("Login Form");
+        setLayout(new FlowLayout());
+
+        add(new JLabel("Username:"));
+        userField = new JTextField(15);
+        add(userField);
+
+        add(new JLabel("Password:"));
+        passField = new JPasswordField(15);
+        add(passField);
+
+        loginButton = new JButton("Login");
+        add(loginButton);
+
+        loginButton.addActionListener(this);
+
+        setSize(250, 200);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+    public void actionPerformed(ActionEvent e) {
+        String username = userField.getText();
+        String password = new String(passField.getPassword());
+        if(username.equals("admin") && password.equals("123")) {
+            JOptionPane.showMessageDialog(this, "Login Successful!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid Username or Password");
+        }
+    }
+
+    public static void main(String[] args) {
+        new LoginForm();
+    }
+}
