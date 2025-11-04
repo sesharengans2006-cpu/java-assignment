@@ -1,0 +1,41 @@
+import java.net.*;
+import java.io.*;
+
+public class BasicHTTPClient {
+    public static void main(String[] args) {
+        try {
+            // URL to fetch
+            URL url = new URL("http://example.com");
+            
+            // Extract host and file path
+            String host = url.getHost();
+            String file = url.getPath();
+            if (file.equals("")) file = "/";
+
+            // Connect to host at port 80 (HTTP)
+            Socket socket = new Socket(host, 80);
+
+            // Send HTTP GET request
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+            out.println("GET " + file + " HTTP/1.1");
+            out.println("Host: " + host);
+            out.println("Connection: close");
+            out.println();
+            
+            // Read and print response
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String line;
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+            }
+            
+            // Close streams and socket
+            in.close();
+            out.close();
+            socket.close();
+            
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
+}
